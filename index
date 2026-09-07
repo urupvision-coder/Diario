@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Panda — Diário de KM</title>
+
+<style>
+:root {
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --text: #17202a;
+    --muted: #718096;
+    --border: #e5e9ef;
+    --primary: #111827;
+    --accent: #16a34a;
+    --danger: #dc2626;
+    --shadow: 0 10px 30px rgba(15, 23, 42, .07);
+}
+
+[data-theme="dark"] {
+    --bg: #0b0f14;
+    --card: #111820;
+    --text: #f4f7fa;
+    --muted: #94a3b8;
+    --border: #202b36;
+    --primary: #f8fafc;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .25);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: .2s;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.container {
+    width: min(1100px, calc(100% - 28px));
+    margin: auto;
+}
+
+/* HEADER */
+
+header {
+    padding: 18px 0;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: var(--primary);
+    color: var(--bg);
+    display: grid;
+    place-items: center;
+    font-size: 23px;
+    font-weight: 900;
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: 19px;
+}
+
+.brand span {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.icon-btn {
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    border-radius: 13px;
+}
+
+/* HERO */
+
+.hero {
+    background: var(--primary);
+    color: var(--bg);
+    border-radius: 24px;
+    padding: 25px;
+    margin: 8px 0 18px;
+    box-shadow: var(--shadow);
+}
+
+.hero small {
+    opacity: .65;
+}
+
+.hero h2 {
+    margin: 7px 0;
+    font-size: clamp(26px, 7vw, 42px);
+    line-height: 1;
+}
+
+.hero p {
+    margin: 10px 0 0;
+    opacity: .65;
+}
+
+/* STATS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 17px;
+    box-shadow: var(--shadow);
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.stat-value {
+    margin-top: 7px;
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.stat-sub {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+/* GRID */
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 390px 1fr;
+    gap: 18px;
+    align-items: start;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.card-title {
+    margin: 0 0 4px;
+    font-size: 18px;
+}
+
+.card-description {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+/* FORM */
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 7px;
+    color: var(--muted);
+}
+
+input {
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    border-radius: 13px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--primary);
+}
+
+input[readonly] {
+    opacity: .8;
+}
+
+.btn {
+    width: 100%;
+    height: 50px;
+    border: 0;
+    border-radius: 14px;
+    background: var(--primary);
+    color: var(--bg);
+    font-weight: 800;
+    margin-top: 4px;
+}
+
+.btn.secondary {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.btn.danger {
+    color: var(--danger);
+}
+
+/* CALCULATIONS */
+
+.calculation {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 15px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+}
+
+.calc-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 7px 0;
+    font-size: 13px;
+}
+
+.calc-row span:first-child {
+    color: var(--muted);
+}
+
+.calc-row strong {
+    text-align: right;
+}
+
+/* WEEK */
+
+.week-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.week-header h3 {
+    margin: 0;
+}
+
+.week-select {
+    width: auto;
+    min-width: 150px;
+    height: 40px;
+}
+
+/* DAY */
+
+.day-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.day {
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    padding: 15px;
+    background: var(--bg);
+}
+
+.day-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+}
+
+.day-name {
+    font-weight: 800;
+}
+
+.day-date {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.day-km {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.day-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.day-info {
+    padding: 9px;
+    background: var(--card);
+    border-radius: 11px;
+}
+
+.day-info span {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.day-info strong {
+    display: block;
+    margin-top: 2px;
+    font-size: 13px;
+}
+
+.day-actions {
+    display: flex;
+    gap: 7px;
+    margin-top: 11px;
+}
+
+.small-btn {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    border-radius: 9px;
+    padding: 7px 10px;
+    font-size: 11px;
+}
+
+.small-btn.delete {
+    color: var(--danger);
+}
+
+/* EMPTY */
+
+.empty {
+    text-align: center;
+    padding: 45px 15px;
+    color: var(--muted);
+}
+
+.empty-icon {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+/* WEEK SUMMARY */
+
+.summary {
+    margin-top: 18px;
+    padding: 18px;
+    border-radius: 18px;
+    background: var(--primary);
+    color: var(--bg);
+}
+
+.summary-title {
+    font-size: 12px;
+    opacity: .6;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.summary-item {
+    background: rgba(127,127,127,.12);
+    border-radius: 13px;
+    padding: 12px;
+}
+
+.summary-item span {
+    display: block;
+    opacity: .6;
+    font-size: 10px;
+}
+
+.summary-item strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 17px;
+}
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translate(-50%, 120px);
+    background: var(--primary);
+    color: var(--bg);
+    padding: 13px 18px;
+    border-radius: 13px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: .3s;
+    z-index: 100;
+    box-shadow: var(--shadow);
+}
+
+.toast.show {
+    transform: translate(-50%, 0);
+}
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    .container {
+        width: min(100% - 20px, 700px);
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 17px;
+    }
+
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+
+    header {
+        padding-top: 12px;
+    }
+
+    .hero {
+        padding: 22px;
+        border-radius: 20px;
+    }
+
+    .stats {
+        gap: 8px;
+    }
+
+    .stat {
+        padding: 14px;
+        border-radius: 15px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    .week-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .week-select {
+        width: 100%;
+    }
+
+    .day-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .day-km {
+        font-size: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="container header-inner">
+        <div class="brand">
+            <div class="logo">🐼</div>
+            <div>
+                <h1>Panda</h1>
+                <span>Diário de KM & Combustível</span>
+            </div>
+        </div>
+
+        <button class="icon-btn" id="themeBtn">☀️</button>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <small>SEMANA ATUAL</small>
+        <h2 id="heroPeriod">—</h2>
+        <p id="heroDays">Nenhum dia registrado</p>
+    </section>
+
+    <section class="stats">
+
+        <div class="stat">
+            <div class="stat-label">KM esta semana</div>
+            <div class="stat-value" id="statKm">0</div>
+            <div class="stat-sub">quilómetros feitos</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">Combustível</div>
+            <div class="stat-value" id="statLitres">0 L</div>
+            <div class="stat-sub">litros calculados</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">Gasto</div>
+            <div class="stat-value" id="statSpent">€0</div>
+            <div class="stat-sub">combustível</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">Média Feita</div>
+            <div class="stat-value" id="statAverage">0</div>
+            <div class="stat-sub">L / 100 km</div>
+        </div>
+
+    </section>
+
+    <section class="main-grid">
+
+        <!-- ADICIONAR DIA -->
+
+        <div class="card">
+
+            <h2 class="card-title">Adicionar dia</h2>
+            <div class="card-description">
+                Registre os dados no final de cada dia.
+            </div>
+
+            <form id="dayForm">
+
+                <div class="form-group">
+                    <label for="date">DATA</label>
+                    <input type="date" id="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="spent">GASTO DO DIA — COMBUSTÍVEL</label>
+                    <input
+                        type="number"
+                        id="spent"
+                        min="0"
+                        step="0.01"
+                        placeholder="Ex: 200"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="fuelPrice">VALOR DO COMBUSTÍVEL — €/L</label>
+                    <input
+                        type="number"
+                        id="fuelPrice"
+                        min="0"
+                        step="0.001"
+                        placeholder="Ex: 1.90"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="odometer">KM NO FINAL DO DIA</label>
+                    <input
+                        type="number"
+                        id="odometer"
+                        min="0"
+                        step="1"
+                        placeholder="Ex: 300"
+                        required
+                    >
+                </div>
+
+                <div class="calculation">
+
+                    <div class="calc-row">
+                        <span>KM feitos hoje</span>
+                        <strong id="previewKm">0 km</strong>
+                    </div>
+
+                    <div class="calc-row">
+                        <span>Combustível calculado</span>
+                        <strong id="previewLitres">0 L</strong>
+                    </div>
+
+                    <div class="calc-row">
+                        <span>Média Feita</span>
+                        <strong id="previewAverage">0 L/100 km</strong>
+                    </div>
+
+                </div>
+
+                <button class="btn" type="submit" id="saveBtn">
+                    + Adicionar dia
+                </button>
+
+                <button
+                    class="btn secondary"
+                    type="button"
+                    id="cancelBtn"
+                    style="display:none;"
+                >
+                    Cancelar edição
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- HISTÓRICO -->
+
+        <div class="card">
+
+            <div class="week-header">
+                <div>
+                    <h3>Diário</h3>
+                    <div class="card-description" style="margin:4px 0 0;">
+                        Registros por dia
+                    </div>
+                </div>
+
+                <select id="weekSelect" class="week-select"></select>
+            </div>
+
+            <div id="dayList" class="day-list"></div>
+
+            <div class="summary">
+
+                <div class="summary-title">
+                    FECHAMENTO DA SEMANA
+                </div>
+
+                <div class="summary-grid">
+
+                    <div class="summary-item">
+                        <span>KM TOTAL</span>
+                        <strong id="sumKm">0 km</strong>
+                    </div>
+
+                    <div class="summary-item">
+                        <span>LITROS</span>
+                        <strong id="sumLitres">0 L</strong>
+                    </div>
+
+                    <div class="summary-item">
+                        <span>GASTO</span>
+                        <strong id="sumSpent">€0</strong>
+                    </div>
+
+                    <div class="summary-item">
+                        <span>MÉDIA</span>
+                        <strong id="sumAverage">0 L/100</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+const STORAGE_KEY = "panda_daily_records_v1";
+
+let records = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+
+let editingId = null;
+
+/* ELEMENTOS */
+
+const dateInput = document.getElementById("date");
+const spentInput = document.getElementById("spent");
+const fuelPriceInput = document.getElementById("fuelPrice");
+const odometerInput = document.getElementById("odometer");
+
+const dayForm = document.getElementById("dayForm");
+const saveBtn = document.getElementById("saveBtn");
+const cancelBtn = document.getElementById("cancelBtn");
+
+const weekSelect = document.getElementById("weekSelect");
+const dayList = document.getElementById("dayList");
+
+const themeBtn = document.getElementById("themeBtn");
+
+/* DATA */
+
+function localDateString(date) {
+
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+    const d = String(date.getDate()).padStart(2, "0");
+
+    return `${y}-${m}-${d}`;
+}
+
+function parseDate(str) {
+
+    const [y, m, d] = str.split("-").map(Number);
+
+    return new Date(y, m - 1, d);
+}
+
+function formatDate(str) {
+
+    const date = parseDate(str);
+
+    return date.toLocaleDateString("pt-PT", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    });
+}
+
+function dayName(str) {
+
+    const date = parseDate(str);
+
+    return date.toLocaleDateString("pt-PT", {
+        weekday: "long"
+    }).replace(/^./, c => c.toUpperCase());
+}
+
+/* SEMANA */
+
+function getMonday(date) {
+
+    const d = new Date(date);
+
+    const day = d.getDay();
+
+    const diff = day === 0 ? -6 : 1 - day;
+
+    d.setDate(d.getDate() + diff);
+
+    d.setHours(0, 0, 0, 0);
+
+    return d;
+}
+
+function getWeekKey(dateString) {
+
+    const date = parseDate(dateString);
+
+    const monday = getMonday(date);
+
+    return localDateString(monday);
+}
+
+function getWeekDates(weekKey) {
+
+    const monday = parseDate(weekKey);
+
+    const sunday = new Date(monday);
+
+    sunday.setDate(sunday.getDate() + 6);
+
+    return {
+        monday,
+        sunday
+    };
+}
+
+function formatWeek(weekKey) {
+
+    const { monday, sunday } = getWeekDates(weekKey);
+
+    const options = {
+        day: "2-digit",
+        month: "2-digit"
+    };
+
+    return `${monday.toLocaleDateString("pt-PT", options)} → ${sunday.toLocaleDateString("pt-PT", options)}`;
+}
+
+/* CÁLCULOS */
+
+function getPreviousOdometer(date, currentId = null) {
+
+    const previous = records
+        .filter(r =>
+            r.id !== currentId &&
+            r.date < date
+        )
+        .sort((a, b) => a.date.localeCompare(b.date))
+        .pop();
+
+    return previous ? Number(previous.odometer) : null;
+}
+
+function calculateRecord(data, id = null) {
+
+    const spent = Number(data.spent) || 0;
+    const fuelPrice = Number(data.fuelPrice) || 0;
+    const odometer = Number(data.odometer) || 0;
+
+    const previousOdometer = getPreviousOdometer(data.date, id);
+
+    let km = 0;
+
+    if (previousOdometer !== null) {
+        km = odometer - previousOdometer;
+    }
+
+    const litres =
+        fuelPrice > 0
+            ? spent / fuelPrice
+            : 0;
+
+    const average =
+        km > 0
+            ? (litres / km) * 100
+            : 0;
+
+    return {
+        km,
+        litres,
+        average
+    };
+}
+
+/* PREVIEW */
+
+function updatePreview() {
+
+    const date = dateInput.value;
+    const spent = Number(spentInput.value) || 0;
+    const fuelPrice = Number(fuelPriceInput.value) || 0;
+    const odometer = Number(odometerInput.value) || 0;
+
+    let previous = null;
+
+    if (date) {
+        previous = getPreviousOdometer(date, editingId);
+    }
+
+    let km = 0;
+
+    if (previous !== null) {
+        km = odometer - previous;
+    }
+
+    const litres =
+        fuelPrice > 0
+            ? spent / fuelPrice
+            : 0;
+
+    const average =
+        km > 0
+            ? (litres / km) * 100
+            : 0;
+
+    document.getElementById("previewKm").textContent =
+        `${formatNumber(km)} km`;
+
+    document.getElementById("previewLitres").textContent =
+        `${formatNumber(litres, 2)} L`;
+
+    document.getElementById("previewAverage").textContent =
+        `${formatNumber(average, 2)} L/100 km`;
+}
+
+/* FORM */
+
+dayForm.addEventListener("input", updatePreview);
+
+dayForm.addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const date = dateInput.value;
+    const spent = Number(spentInput.value);
+    const fuelPrice = Number(fuelPriceInput.value);
+    const odometer = Number(odometerInput.value);
+
+    if (!date || spent < 0 || fuelPrice <= 0 || odometer < 0) {
+        showToast("Verifique os dados.");
+        return;
+    }
+
+    /* Não permitir dois registros no mesmo dia */
+
+    const duplicate = records.find(r =>
+        r.date === date && r.id !== editingId
+    );
+
+    if (duplicate) {
+        showToast("Já existe um registro para este dia.");
+        return;
+    }
+
+    const calculations = calculateRecord({
+        date,
+        spent,
+        fuelPrice,
+        odometer
+    }, editingId);
+
+    const record = {
+        id: editingId || Date.now().toString(),
+        date,
+        spent,
+        fuelPrice,
+        odometer,
+        km: calculations.km,
+        litres: calculations.litres,
+        average: calculations.average
+    };
+
+    if (editingId) {
+
+        const index = records.findIndex(r => r.id === editingId);
+
+        if (index !== -1) {
+            records[index] = record;
+        }
+
+        showToast("Dia atualizado.");
+
+    } else {
+
+        records.push(record);
+
+        showToast("Dia adicionado.");
+    }
+
+    /*
+       Recalcula todos os registros porque,
+       se alterar um dia, os KM dos dias seguintes
+       também podem mudar.
+    */
+
+    recalculateAll();
+
+    saveData();
+
+    resetForm();
+
+    populateWeeks();
+
+    weekSelect.value = getWeekKey(date);
+
+    render();
+
+});
+
+/* RECALCULAR TUDO */
+
+function recalculateAll() {
+
+    records.sort((a, b) =>
+        a.date.localeCompare(b.date)
+    );
+
+    let previousOdometer = null;
+
+    records.forEach(record => {
+
+        if (previousOdometer !== null) {
+
+            record.km =
+                Number(record.odometer) -
+                Number(previousOdometer);
+
+        } else {
+
+            record.km = 0;
+        }
+
+        record.litres =
+            Number(record.fuelPrice) > 0
+                ? Number(record.spent) / Number(record.fuelPrice)
+                : 0;
+
+        record.average =
+            record.km > 0
+                ? (record.litres / record.km) * 100
+                : 0;
+
+        previousOdometer = Number(record.odometer);
+    });
+}
+
+/* RESET */
+
+cancelBtn.addEventListener("click", resetForm);
+
+function resetForm() {
+
+    editingId = null;
+
+    dayForm.reset();
+
+    const today = localDateString(new Date());
+
+    dateInput.value = today;
+
+    saveBtn.textContent = "+ Adicionar dia";
+
+    cancelBtn.style.display = "none";
+
+    updatePreview();
+}
+
+/* EDITAR */
+
+function editRecord(id) {
+
+    const record = records.find(r => r.id === id);
+
+    if (!record) return;
+
+    editingId = id;
+
+    dateInput.value = record.date;
+    spentInput.value = record.spent;
+    fuelPriceInput.value = record.fuelPrice;
+    odometerInput.value = record.odometer;
+
+    saveBtn.textContent = "Guardar alterações";
+
+    cancelBtn.style.display = "block";
+
+    updatePreview();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+/* APAGAR */
+
+function deleteRecord(id) {
+
+    const record = records.find(r => r.id === id);
+
+    if (!record) return;
+
+    if (!confirm(
+        `Apagar o registro de ${formatDate(record.date)}?`
+    )) {
+        return;
+    }
+
+    records = records.filter(r => r.id !== id);
+
+    recalculateAll();
+
+    saveData();
+
+    populateWeeks();
+
+    render();
+
+    showToast("Registro apagado.");
+}
+
+/* WEEKS */
+
+function populateWeeks() {
+
+    const weeks = [...new Set(
+        records.map(r => getWeekKey(r.date))
+    )];
+
+    const currentWeek = getWeekKey(
+        localDateString(new Date())
+    );
+
+    if (!weeks.includes(currentWeek)) {
+        weeks.unshift(currentWeek);
+    }
+
+    weeks.sort((a, b) => b.localeCompare(a));
+
+    const previous = weekSelect.value;
+
+    weekSelect.innerHTML = "";
+
+    weeks.forEach(week => {
+
+        const option = document.createElement("option");
+
+        option.value = week;
+
+        option.textContent = formatWeek(week);
+
+        weekSelect.appendChild(option);
+    });
+
+    if (weeks.includes(previous)) {
+        weekSelect.value = previous;
+    } else {
+        weekSelect.value = currentWeek;
+    }
+}
+
+weekSelect.addEventListener("change", render);
+
+/* RENDER */
+
+function render() {
+
+    const week = weekSelect.value;
+
+    if (!week) return;
+
+    const weekRecords = records
+        .filter(r => getWeekKey(r.date) === week)
+        .sort((a, b) => a.date.localeCompare(b.date));
+
+    renderDays(weekRecords);
+
+    renderSummary(weekRecords);
+
+    updateDashboard(weekRecords, week);
+
+}
+
+/* DAYS */
+
+function renderDays(list) {
+
+    dayList.innerHTML = "";
+
+    if (!list.length) {
+
+        dayList.innerHTML = `
+            <div class="empty">
+                <div class="empty-icon">📅</div>
+                <strong>Nenhum dia registrado</strong>
+                <div>Adicione o primeiro dia da semana.</div>
+            </div>
+        `;
+
+        return;
+    }
+
+    list.forEach(record => {
+
+        const div = document.createElement("div");
+
+        div.className = "day";
+
+        div.innerHTML = `
+
+            <div class="day-top">
+
+                <div>
+                    <div class="day-name">
+                        ${dayName(record.date)}
+                    </div>
+
+                    <div class="day-date">
+                        ${formatDate(record.date)}
+                    </div>
+                </div>
+
+                <div class="day-km">
+                    ${formatNumber(record.km)} km
+                </div>
+
+            </div>
+
+            <div class="day-grid">
+
+                <div class="day-info">
+                    <span>Gasto</span>
+                    <strong>${formatEuro(record.spent)}</strong>
+                </div>
+
+                <div class="day-info">
+                    <span>Combustível</span>
+                    <strong>${formatNumber(record.litres, 2)} L</strong>
+                </div>
+
+                <div class="day-info">
+                    <span>Preço/L</span>
+                    <strong>${formatEuro(record.fuelPrice)}</strong>
+                </div>
+
+                <div class="day-info">
+                    <span>KM final</span>
+                    <strong>${formatNumber(record.odometer)}</strong>
+                </div>
+
+                <div class="day-info">
+                    <span>Média</span>
+                    <strong>${formatNumber(record.average, 2)}</strong>
+                </div>
+
+            </div>
+
+            <div class="day-actions">
+
+                <button
+                    class="small-btn"
+                    onclick="editRecord('${record.id}')"
+                >
+                    ✏️ Editar
+                </button>
+
+                <button
+                    class="small-btn delete"
+                    onclick="deleteRecord('${record.id}')"
+                >
+                    🗑 Apagar
+                </button>
+
+            </div>
+        `;
+
+        dayList.appendChild(div);
+    });
+}
+
+/* SUMMARY */
+
+function renderSummary(list) {
+
+    const totalKm = list.reduce(
+        (sum, r) => sum + Number(r.km),
+        0
+    );
+
+    const totalLitres = list.reduce(
+        (sum, r) => sum + Number(r.litres),
+        0
+    );
+
+    const totalSpent = list.reduce(
+        (sum, r) => sum + Number(r.spent),
+        0
+    );
+
+    const average =
+        totalKm > 0
+            ? (totalLitres / totalKm) * 100
+            : 0;
+
+    document.getElementById("sumKm").textContent =
+        `${formatNumber(totalKm)} km`;
+
+    document.getElementById("sumLitres").textContent =
+        `${formatNumber(totalLitres, 2)} L`;
+
+    document.getElementById("sumSpent").textContent =
+        formatEuro(totalSpent);
+
+    document.getElementById("sumAverage").textContent =
+        `${formatNumber(average, 2)} L/100`;
+}
+
+/* DASHBOARD */
+
+function updateDashboard(list, week) {
+
+    const totalKm = list.reduce(
+        (sum, r) => sum + Number(r.km),
+        0
+    );
+
+    const totalLitres = list.reduce(
+        (sum, r) => sum + Number(r.litres),
+        0
+    );
+
+    const totalSpent = list.reduce(
+        (sum, r) => sum + Number(r.spent),
+        0
+    );
+
+    const average =
+        totalKm > 0
+            ? (totalLitres / totalKm) * 100
+            : 0;
+
+    document.getElementById("statKm").textContent =
+        formatNumber(totalKm);
+
+    document.getElementById("statLitres").textContent =
+        `${formatNumber(totalLitres, 1)} L`;
+
+    document.getElementById("statSpent").textContent =
+        formatEuro(totalSpent);
+
+    document.getElementById("statAverage").textContent =
+        formatNumber(average, 2);
+
+    document.getElementById("heroPeriod").textContent =
+        formatWeek(week);
+
+    document.getElementById("heroDays").textContent =
+        list.length === 0
+            ? "Nenhum dia registrado"
+            : `${list.length} ${list.length === 1 ? "dia" : "dias"} registrado${list.length === 1 ? "" : "s"}`;
+}
+
+/* FORMAT */
+
+function formatNumber(value, decimals = 0) {
+
+    return Number(value || 0).toLocaleString("pt-PT", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+    });
+}
+
+function formatEuro(value) {
+
+    return Number(value || 0).toLocaleString("pt-PT", {
+        style: "currency",
+        currency: "EUR"
+    });
+}
+
+/* STORAGE */
+
+function saveData() {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(records)
+    );
+}
+
+/* TOAST */
+
+function showToast(message) {
+
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2200);
+}
+
+/* THEME */
+
+function loadTheme() {
+
+    const theme =
+        localStorage.getItem("panda_theme") || "dark";
+
+    document.documentElement.dataset.theme = theme;
+
+    themeBtn.textContent =
+        theme === "dark" ? "☀️" : "🌙";
+}
+
+themeBtn.addEventListener("click", () => {
+
+    const current =
+        document.documentElement.dataset.theme;
+
+    const next =
+        current === "dark" ? "light" : "dark";
+
+    document.documentElement.dataset.theme = next;
+
+    localStorage.setItem("panda_theme", next);
+
+    themeBtn.textContent =
+        next === "dark" ? "☀️" : "🌙";
+});
+
+/* START */
+
+function init() {
+
+    recalculateAll();
+
+    saveData();
+
+    resetForm();
+
+    populateWeeks();
+
+    render();
+
+    loadTheme();
+}
+
+init();
+
+</script>
+
+</body>
+</html>
