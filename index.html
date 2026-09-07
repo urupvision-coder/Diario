@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Panda Diário</title>
+
+<style>
+:root{
+    --bg:#f3f5f7;
+    --surface:#ffffff;
+    --surface2:#f7f8fa;
+    --text:#101418;
+    --muted:#7b8490;
+    --border:#e6e9ed;
+    --primary:#11151a;
+    --green:#20b26b;
+    --green-soft:#e8f8f0;
+    --red:#e5484d;
+    --shadow:0 12px 35px rgba(16,24,40,.07);
+}
+
+[data-theme="dark"]{
+    --bg:#080b0f;
+    --surface:#11161c;
+    --surface2:#171d24;
+    --text:#f5f7fa;
+    --muted:#8d98a6;
+    --border:#222a33;
+    --primary:#f5f7fa;
+    --green:#2bd47f;
+    --green-soft:#123425;
+    --red:#ff6469;
+    --shadow:0 15px 40px rgba(0,0,0,.28);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.container{
+    width:min(1100px,calc(100% - 28px));
+    margin:auto;
+}
+
+/* HEADER */
+
+.header{
+    padding:16px 0 8px;
+}
+
+.header-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.logo{
+    width:45px;
+    height:45px;
+    border-radius:15px;
+    background:var(--primary);
+    color:var(--bg);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+    box-shadow:var(--shadow);
+}
+
+.brand-title{
+    font-size:18px;
+    font-weight:850;
+    line-height:1.1;
+}
+
+.brand-sub{
+    font-size:11px;
+    color:var(--muted);
+    margin-top:3px;
+}
+
+.theme-btn{
+    width:42px;
+    height:42px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    border-radius:13px;
+}
+
+/* HERO */
+
+.hero{
+    margin-top:14px;
+    background:var(--primary);
+    color:var(--bg);
+    border-radius:25px;
+    padding:25px;
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+}
+
+.hero:after{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    border:1px solid rgba(127,127,127,.15);
+    right:-65px;
+    top:-65px;
+}
+
+.hero-label{
+    font-size:10px;
+    letter-spacing:1.5px;
+    opacity:.55;
+    font-weight:800;
+}
+
+.hero h1{
+    margin:7px 0 5px;
+    font-size:clamp(28px,7vw,43px);
+    letter-spacing:-1.5px;
+}
+
+.hero p{
+    margin:0;
+    font-size:13px;
+    opacity:.58;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:11px;
+    margin:15px 0;
+}
+
+.stat{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:19px;
+    padding:16px;
+    box-shadow:var(--shadow);
+}
+
+.stat-icon{
+    font-size:18px;
+    margin-bottom:10px;
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+}
+
+.stat-value{
+    font-size:22px;
+    font-weight:850;
+    margin-top:4px;
+    letter-spacing:-.5px;
+}
+
+.stat-bottom{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:2px;
+}
+
+/* MAIN */
+
+.layout{
+    display:grid;
+    grid-template-columns:370px 1fr;
+    gap:15px;
+    align-items:start;
+}
+
+.card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:23px;
+    padding:20px;
+    box-shadow:var(--shadow);
+}
+
+.card-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:18px;
+}
+
+.card-title{
+    margin:0;
+    font-size:18px;
+    font-weight:850;
+}
+
+.card-subtitle{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:4px;
+}
+
+/* FORM */
+
+.form-group{
+    margin-bottom:14px;
+}
+
+label{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.5px;
+    margin:0 0 7px 3px;
+}
+
+input,
+select{
+    width:100%;
+    height:48px;
+    border:1px solid var(--border);
+    border-radius:13px;
+    background:var(--surface2);
+    color:var(--text);
+    padding:0 13px;
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:var(--green);
+}
+
+.input-wrap{
+    position:relative;
+}
+
+.input-symbol{
+    position:absolute;
+    left:13px;
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--muted);
+    font-weight:700;
+}
+
+.input-wrap input{
+    padding-left:35px;
+}
+
+/* LIVE CALC */
+
+.live{
+    background:var(--surface2);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:13px;
+    margin:17px 0;
+}
+
+.live-title{
+    font-size:10px;
+    color:var(--muted);
+    font-weight:800;
+    letter-spacing:.6px;
+    margin-bottom:6px;
+}
+
+.live-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:6px 0;
+}
+
+.live-row span{
+    font-size:12px;
+    color:var(--muted);
+}
+
+.live-row strong{
+    font-size:13px;
+}
+
+.live-row.highlight strong{
+    color:var(--green);
+    font-size:16px;
+}
+
+/* BUTTON */
+
+.primary-btn{
+    width:100%;
+    height:51px;
+    border:0;
+    border-radius:14px;
+    background:var(--primary);
+    color:var(--bg);
+    font-weight:850;
+    box-shadow:var(--shadow);
+}
+
+.secondary-btn{
+    width:100%;
+    height:45px;
+    border:1px solid var(--border);
+    border-radius:13px;
+    background:var(--surface2);
+    color:var(--text);
+    font-weight:700;
+    margin-top:8px;
+}
+
+/* WEEK */
+
+.week-control{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.week-control select{
+    width:170px;
+    height:41px;
+    font-size:12px;
+}
+
+/* DAYS */
+
+.days{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.empty{
+    text-align:center;
+    padding:45px 15px;
+    color:var(--muted);
+}
+
+.empty-icon{
+    font-size:34px;
+    margin-bottom:9px;
+}
+
+/* DAY CARD */
+
+.day-card{
+    border:1px solid var(--border);
+    background:var(--surface2);
+    border-radius:18px;
+    padding:15px;
+}
+
+.day-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.day-name{
+    font-weight:850;
+    font-size:14px;
+}
+
+.day-date{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
+}
+
+.day-main{
+    text-align:right;
+}
+
+.day-km{
+    font-size:20px;
+    font-weight:900;
+}
+
+.day-km-label{
+    color:var(--muted);
+    font-size:9px;
+}
+
+.day-data{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:7px;
+    margin-top:13px;
+}
+
+.data-box{
+    background:var(--surface);
+    border-radius:12px;
+    padding:9px;
+    min-width:0;
+}
+
+.data-box span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+}
+
+.data-box strong{
+    display:block;
+    font-size:12px;
+    margin-top:3px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.day-actions{
+    display:flex;
+    gap:7px;
+    margin-top:10px;
+}
+
+.action-btn{
+    border:1px solid var(--border);
+    background:var(--surface);
+    color:var(--text);
+    border-radius:9px;
+    padding:7px 10px;
+    font-size:10px;
+    font-weight:700;
+}
+
+.action-btn.delete{
+    color:var(--red);
+}
+
+/* WEEK SUMMARY */
+
+.week-summary{
+    margin-top:14px;
+    border-radius:19px;
+    background:var(--primary);
+    color:var(--bg);
+    padding:18px;
+}
+
+.summary-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.summary-title{
+    font-size:11px;
+    font-weight:850;
+    letter-spacing:.7px;
+}
+
+.summary-days{
+    font-size:10px;
+    opacity:.55;
+}
+
+.summary-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+    margin-top:13px;
+}
+
+.summary-box{
+    background:rgba(127,127,127,.11);
+    border-radius:12px;
+    padding:10px;
+}
+
+.summary-box span{
+    display:block;
+    font-size:9px;
+    opacity:.55;
+}
+
+.summary-box strong{
+    display:block;
+    font-size:16px;
+    margin-top:3px;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    z-index:999;
+    left:50%;
+    bottom:20px;
+    transform:translate(-50%,120px);
+    background:var(--primary);
+    color:var(--bg);
+    padding:12px 17px;
+    border-radius:13px;
+    font-size:12px;
+    font-weight:800;
+    box-shadow:var(--shadow);
+    transition:.3s ease;
+}
+
+.toast.show{
+    transform:translate(-50%,0);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px){
+
+    .dashboard{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .layout{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:560px){
+
+    .container{
+        width:calc(100% - 18px);
+    }
+
+    .hero{
+        border-radius:21px;
+        padding:22px;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .stat{
+        padding:13px;
+        border-radius:16px;
+    }
+
+    .stat-value{
+        font-size:19px;
+    }
+
+    .card{
+        padding:16px;
+        border-radius:20px;
+    }
+
+    .card-heading{
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .week-control,
+    .week-control select{
+        width:100%;
+    }
+
+    .week-control select{
+        height:43px;
+    }
+
+    .day-data{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .summary-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:360px){
+
+    .dashboard{
+        gap:7px;
+    }
+
+    .stat-value{
+        font-size:17px;
+    }
+
+    .day-km{
+        font-size:18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+
+        <div class="brand">
+
+            <div class="logo">🐼</div>
+
+            <div>
+                <div class="brand-title">Panda Diário</div>
+                <div class="brand-sub">
+                    KM & Combustível
+                </div>
+            </div>
+
+        </div>
+
+        <button
+            class="theme-btn"
+            id="themeBtn"
+            type="button"
+        >
+            ☀️
+        </button>
+
+    </div>
+</header>
+
+
+<main class="container">
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-label">
+            SEMANA SELECIONADA
+        </div>
+
+        <h1 id="heroPeriod">
+            —
+        </h1>
+
+        <p id="heroText">
+            Comece adicionando o primeiro dia.
+        </p>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+
+    <section class="dashboard">
+
+        <div class="stat">
+
+            <div class="stat-icon">🚗</div>
+
+            <div class="stat-label">
+                KM feitos
+            </div>
+
+            <div class="stat-value" id="statKm">
+                0
+            </div>
+
+            <div class="stat-bottom">
+                esta semana
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">⛽</div>
+
+            <div class="stat-label">
+                Combustível
+            </div>
+
+            <div class="stat-value" id="statLitres">
+                0 L
+            </div>
+
+            <div class="stat-bottom">
+                consumidos
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">💶</div>
+
+            <div class="stat-label">
+                Gasto
+            </div>
+
+            <div class="stat-value" id="statSpent">
+                €0
+            </div>
+
+            <div class="stat-bottom">
+                combustível
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">📊</div>
+
+            <div class="stat-label">
+                Média Feita
+            </div>
+
+            <div class="stat-value" id="statAverage">
+                0
+            </div>
+
+            <div class="stat-bottom">
+                L / 100 km
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MAIN -->
+
+    <section class="layout">
+
+
+        <!-- ADD -->
+
+        <div class="card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <h2 class="card-title">
+                        Adicionar dia
+                    </h2>
+
+                    <div class="card-subtitle">
+                        Registe no final do dia
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <form id="dayForm">
+
+                <div class="form-group">
+
+                    <label>
+                        DATA
+                    </label>
+
+                    <input
+                        type="date"
+                        id="date"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        GASTO DO DIA
+                    </label>
+
+                    <div class="input-wrap">
+
+                        <span class="input-symbol">
+                            €
+                        </span>
+
+                        <input
+                            type="number"
+                            id="spent"
+                            min="0"
+                            step="0.01"
+                            placeholder="200.00"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        PREÇO DO COMBUSTÍVEL
+                    </label>
+
+                    <div class="input-wrap">
+
+                        <span class="input-symbol">
+                            €
+                        </span>
+
+                        <input
+                            type="number"
+                            id="fuelPrice"
+                            min="0"
+                            step="0.001"
+                            placeholder="1.90"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        KM NO FINAL DO DIA
+                    </label>
+
+                    <input
+                        type="number"
+                        id="odometer"
+                        min="0"
+                        step="1"
+                        placeholder="Ex: 300000"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- LIVE -->
+
+                <div class="live">
+
+                    <div class="live-title">
+                        CÁLCULO AUTOMÁTICO
+                    </div>
+
+                    <div class="live-row">
+
+                        <span>
+                            KM feitos hoje
+                        </span>
+
+                        <strong id="previewKm">
+                            0 km
+                        </strong>
+
+                    </div>
+
+
+                    <div class="live-row">
+
+                        <span>
+                            Litros calculados
+                        </span>
+
+                        <strong id="previewLitres">
+                            0 L
+                        </strong>
+
+                    </div>
+
+
+                    <div class="live-row highlight">
+
+                        <span>
+                            Média Feita
+                        </span>
+
+                        <strong id="previewAverage">
+                            0 L/100 km
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="primary-btn"
+                    type="submit"
+                    id="saveBtn"
+                >
+                    + Adicionar dia
+                </button>
+
+
+                <button
+                    class="secondary-btn"
+                    type="button"
+                    id="cancelBtn"
+                    style="display:none"
+                >
+                    Cancelar edição
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- DIÁRIO -->
+
+        <div class="card">
+
+            <div class="card-heading">
+
+                <div>
+
+                    <h2 class="card-title">
+                        Diário
+                    </h2>
+
+                    <div class="card-subtitle">
+                        Registos desta semana
+                    </div>
+
+                </div>
+
+
+                <div class="week-control">
+
+                    <select id="weekSelect"></select>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="days"
+                id="dayList"
+            ></div>
+
+
+            <!-- SUMMARY -->
+
+            <div class="week-summary">
+
+                <div class="summary-head">
+
+                    <div class="summary-title">
+                        FECHAMENTO DA SEMANA
+                    </div>
+
+                    <div
+                        class="summary-days"
+                        id="summaryDays"
+                    >
+                        0 dias
+                    </div>
+
+                </div>
+
+
+                <div class="summary-grid">
+
+                    <div class="summary-box">
+
+                        <span>
+                            KM TOTAL
+                        </span>
+
+                        <strong id="sumKm">
+                            0 km
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-box">
+
+                        <span>
+                            LITROS
+                        </span>
+
+                        <strong id="sumLitres">
+                            0 L
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-box">
+
+                        <span>
+                            GASTO
+                        </span>
+
+                        <strong id="sumSpent">
+                            €0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-box">
+
+                        <span>
+                            MÉDIA
+                        </span>
+
+                        <strong id="sumAverage">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+/* =========================================
+   CONFIGURAÇÃO
+========================================= */
+
+const STORAGE_KEY =
+    "panda_diario_database_v2";
+
+let records =
+    JSON.parse(
+        localStorage.getItem(STORAGE_KEY) || "[]"
+    );
+
+let editingId = null;
+
+
+/* =========================================
+   ELEMENTOS
+========================================= */
+
+const dateInput =
+    document.getElementById("date");
+
+const spentInput =
+    document.getElementById("spent");
+
+const fuelPriceInput =
+    document.getElementById("fuelPrice");
+
+const odometerInput =
+    document.getElementById("odometer");
+
+const dayForm =
+    document.getElementById("dayForm");
+
+const saveBtn =
+    document.getElementById("saveBtn");
+
+const cancelBtn =
+    document.getElementById("cancelBtn");
+
+const weekSelect =
+    document.getElementById("weekSelect");
+
+const dayList =
+    document.getElementById("dayList");
+
+const themeBtn =
+    document.getElementById("themeBtn");
+
+
+/* =========================================
+   DATA
+========================================= */
+
+function parseDate(value){
+
+    const [y,m,d] =
+        value.split("-").map(Number);
+
+    return new Date(
+        y,
+        m - 1,
+        d
+    );
+}
+
+
+function dateString(date){
+
+    const y =
+        date.getFullYear();
+
+    const m =
+        String(
+            date.getMonth()+1
+        ).padStart(2,"0");
+
+    const d =
+        String(
+            date.getDate()
+        ).padStart(2,"0");
+
+    return `${y}-${m}-${d}`;
+}
+
+
+function formatDate(value){
+
+    return parseDate(value)
+        .toLocaleDateString(
+            "pt-PT",
+            {
+                day:"2-digit",
+                month:"2-digit",
+                year:"numeric"
+            }
+        );
+}
+
+
+function formatDay(value){
+
+    return parseDate(value)
+        .toLocaleDateString(
+            "pt-PT",
+            {
+                weekday:"long"
+            }
+        )
+        .replace(/^./,c=>c.toUpperCase());
+}
+
+
+/* =========================================
+   SEMANA
+========================================= */
+
+function getMonday(date){
+
+    const d =
+        new Date(date);
+
+    const day =
+        d.getDay();
+
+    const diff =
+        day === 0
+            ? -6
+            : 1-day;
+
+    d.setDate(
+        d.getDate()+diff
+    );
+
+    d.setHours(
+        0,0,0,0
+    );
+
+    return d;
+}
+
+
+function getWeekKey(date){
+
+    return dateString(
+        getMonday(
+            parseDate(date)
+        )
+    );
+}
+
+
+function getWeekEnd(key){
+
+    const sunday =
+        parseDate(key);
+
+    sunday.setDate(
+        sunday.getDate()+6
+    );
+
+    return sunday;
+}
+
+
+function formatWeek(key){
+
+    const start =
+        parseDate(key);
+
+    const end =
+        getWeekEnd(key);
+
+    return (
+        start.toLocaleDateString(
+            "pt-PT",
+            {
+                day:"2-digit",
+                month:"2-digit"
+            }
+        )
+        +
+        " → "
+        +
+        end.toLocaleDateString(
+            "pt-PT",
+            {
+                day:"2-digit",
+                month:"2-digit"
+            }
+        )
+    );
+}
+
+
+/* =========================================
+   CÁLCULOS
+========================================= */
+
+function getPreviousRecord(
+    date,
+    currentId=null
+){
+
+    return records
+        .filter(r =>
+            r.id !== currentId &&
+            r.date < date
+        )
+        .sort(
+            (a,b)=>
+                a.date.localeCompare(
+                    b.date
+                )
+        )
+        .pop();
+}
+
+
+function calculate(
+    date,
+    spent,
+    fuelPrice,
+    odometer,
+    currentId=null
+){
+
+    const previous =
+        getPreviousRecord(
+            date,
+            currentId
+        );
+
+    let km = 0;
+
+    if(previous){
+
+        km =
+            Number(odometer)
+            -
+            Number(previous.odometer);
+
+    }
+
+    const litres =
+        fuelPrice > 0
+            ? Number(spent)/Number(fuelPrice)
+            : 0;
+
+    const average =
+        km > 0
+            ? (litres/km)*100
+            : 0;
+
+    return {
+        km,
+        litres,
+        average
+    };
+}
+
+
+/* =========================================
+   PREVIEW
+========================================= */
+
+function updatePreview(){
+
+    const date =
+        dateInput.value;
+
+    const spent =
+        Number(
+            spentInput.value
+        ) || 0;
+
+    const price =
+        Number(
+            fuelPriceInput.value
+        ) || 0;
+
+    const odometer =
+        Number(
+            odometerInput.value
+        ) || 0;
+
+    if(!date){
+
+        return;
+    }
+
+    const result =
+        calculate(
+            date,
+            spent,
+            price,
+            odometer,
+            editingId
+        );
+
+    document.getElementById(
+        "previewKm"
+    ).textContent =
+        `${number(result.km)} km`;
+
+    document.getElementById(
+        "previewLitres"
+    ).textContent =
+        `${number(result.litres,2)} L`;
+
+    document.getElementById(
+        "previewAverage"
+    ).textContent =
+        `${number(result.average,2)} L/100 km`;
+}
+
+
+dayForm.addEventListener(
+    "input",
+    updatePreview
+);
+
+
+/* =========================================
+   GUARDAR
+========================================= */
+
+dayForm.addEventListener(
+    "submit",
+    function(e){
+
+        e.preventDefault();
+
+        const date =
+            dateInput.value;
+
+        const spent =
+            Number(
+                spentInput.value
+            );
+
+        const fuelPrice =
+            Number(
+                fuelPriceInput.value
+            );
+
+        const odometer =
+            Number(
+                odometerInput.value
+            );
+
+
+        if(
+            !date ||
+            spent < 0 ||
+            fuelPrice <= 0 ||
+            odometer < 0
+        ){
+
+            toast(
+                "Verifique os dados."
+            );
+
+            return;
+        }
+
+
+        const duplicate =
+            records.find(r =>
+                r.date === date &&
+                r.id !== editingId
+            );
+
+
+        if(duplicate){
+
+            toast(
+                "Já existe um registro neste dia."
+            );
+
+            return;
+        }
+
+
+        const result =
+            calculate(
+                date,
+                spent,
+                fuelPrice,
+                odometer,
+                editingId
+            );
+
+
+        const record = {
+
+            id:
+                editingId ||
+                Date.now().toString(),
+
+            date,
+
+            spent,
+
+            fuelPrice,
+
+            odometer,
+
+            km:
+                result.km,
+
+            litres:
+                result.litres,
+
+            average:
+                result.average
+        };
+
+
+        if(editingId){
+
+            const index =
+                records.findIndex(
+                    r =>
+                        r.id === editingId
+                );
+
+            if(index !== -1){
+
+                records[index] =
+                    record;
+            }
+
+            toast(
+                "Dia atualizado."
+            );
+
+        }else{
+
+            records.push(record);
+
+            toast(
+                "Dia adicionado."
+            );
+        }
+
+
+        recalculateAll();
+
+        save();
+
+        resetForm();
+
+        populateWeeks();
+
+        weekSelect.value =
+            getWeekKey(date);
+
+        render();
+
+    }
+);
+
+
+/* =========================================
+   RECALCULAR TODOS
+========================================= */
+
+function recalculateAll(){
+
+    records.sort(
+        (a,b)=>
+            a.date.localeCompare(
+                b.date
+            )
+    );
+
+    let previousKm = null;
+
+    records.forEach(record => {
+
+        if(previousKm !== null){
+
+            record.km =
+                Number(record.odometer)
+                -
+                Number(previousKm);
+
+        }else{
+
+            record.km = 0;
+        }
+
+
+        record.litres =
+            Number(record.fuelPrice) > 0
+                ?
+                Number(record.spent)
+                /
+                Number(record.fuelPrice)
+                :
+                0;
+
+
+        record.average =
+            record.km > 0
+                ?
+                (
+                    record.litres /
+                    record.km
+                ) * 100
+                :
+                0;
+
+
+        previousKm =
+            Number(record.odometer);
+
+    });
+}
+
+
+/* =========================================
+   EDITAR
+========================================= */
+
+function editRecord(id){
+
+    const record =
+        records.find(
+            r => r.id === id
+        );
+
+    if(!record){
+
+        return;
+    }
+
+
+    editingId = id;
+
+    dateInput.value =
+        record.date;
+
+    spentInput.value =
+        record.spent;
+
+    fuelPriceInput.value =
+        record.fuelPrice;
+
+    odometerInput.value =
+        record.odometer;
+
+
+    saveBtn.textContent =
+        "Guardar alterações";
+
+    cancelBtn.style.display =
+        "block";
+
+
+    updatePreview();
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* =========================================
+   APAGAR
+========================================= */
+
+function deleteRecord(id){
+
+    const record =
+        records.find(
+            r => r.id === id
+        );
+
+    if(!record){
+
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            `Apagar o registro de ${formatDate(record.date)}?`
+        );
+
+
+    if(!confirmed){
+
+        return;
+    }
+
+
+    records =
+        records.filter(
+            r => r.id !== id
+        );
+
+
+    recalculateAll();
+
+    save();
+
+    populateWeeks();
+
+    render();
+
+    toast(
+        "Registro apagado."
+    );
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+cancelBtn.addEventListener(
+    "click",
+    resetForm
+);
+
+
+function resetForm(){
+
+    editingId = null;
+
+    dayForm.reset();
+
+    dateInput.value =
+        dateString(
+            new Date()
+        );
+
+    saveBtn.textContent =
+        "+ Adicionar dia";
+
+    cancelBtn.style.display =
+        "none";
+
+    updatePreview();
+}
+
+
+/* =========================================
+   WEEKS
+========================================= */
+
+function populateWeeks(){
+
+    const weeks =
+        [
+            ...new Set(
+                records.map(
+                    r =>
+                        getWeekKey(r.date)
+                )
+            )
+        ];
+
+
+    const current =
+        getWeekKey(
+            dateString(
+                new Date()
+            )
+        );
+
+
+    if(
+        !weeks.includes(current)
+    ){
+
+        weeks.push(current);
+    }
+
+
+    weeks.sort(
+        (a,b)=>
+            b.localeCompare(a)
+    );
+
+
+    const selected =
+        weekSelect.value;
+
+
+    weekSelect.innerHTML =
+        "";
+
+
+    weeks.forEach(week => {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value =
+            week;
+
+        option.textContent =
+            formatWeek(week);
+
+        weekSelect.appendChild(
+            option
+        );
+    });
+
+
+    if(
+        weeks.includes(selected)
+    ){
+
+        weekSelect.value =
+            selected;
+
+    }else{
+
+        weekSelect.value =
+            current;
+    }
+}
+
+
+weekSelect.addEventListener(
+    "change",
+    render
+);
+
+
+/* =========================================
+   RENDER
+========================================= */
+
+function render(){
+
+    const week =
+        weekSelect.value;
+
+    if(!week){
+
+        return;
+    }
+
+
+    const list =
+        records
+            .filter(
+                r =>
+                    getWeekKey(
+                        r.date
+                    ) === week
+            )
+            .sort(
+                (a,b)=>
+                    a.date.localeCompare(
+                        b.date
+                    )
+            );
+
+
+    renderDays(list);
+
+    renderSummary(list);
+
+    updateDashboard(
+        list,
+        week
+    );
+}
+
+
+/* =========================================
+   DIAS
+========================================= */
+
+function renderDays(list){
+
+    dayList.innerHTML =
+        "";
+
+
+    if(!list.length){
+
+        dayList.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    📅
+                </div>
+
+                <strong>
+                    Nenhum dia registrado
+                </strong>
+
+                <div style="margin-top:5px">
+                    Adicione o primeiro dia.
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    list.forEach(record => {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+        div.className =
+            "day-card";
+
+
+        div.innerHTML = `
+
+            <div class="day-top">
+
+                <div>
+
+                    <div class="day-name">
+                        ${formatDay(record.date)}
+                    </div>
+
+                    <div class="day-date">
+                        ${formatDate(record.date)}
+                    </div>
+
+                </div>
+
+
+                <div class="day-main">
+
+                    <div class="day-km">
+                        ${number(record.km)} km
+                    </div>
+
+                    <div class="day-km-label">
+                        FEITOS HOJE
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="day-data">
+
+                <div class="data-box">
+
+                    <span>
+                        Gasto
+                    </span>
+
+                    <strong>
+                        ${euro(record.spent)}
+                    </strong>
+
+                </div>
+
+
+                <div class="data-box">
+
+                    <span>
+                        Combustível
+                    </span>
+
+                    <strong>
+                        ${number(record.litres,2)} L
+                    </strong>
+
+                </div>
+
+
+                <div class="data-box">
+
+                    <span>
+                        Preço/L
+                    </span>
+
+                    <strong>
+                        ${euro(record.fuelPrice)}
+                    </strong>
+
+                </div>
+
+
+                <div class="data-box">
+
+                    <span>
+                        KM final
+                    </span>
+
+                    <strong>
+                        ${number(record.odometer)}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="day-actions">
+
+                <button
+                    class="action-btn"
+                    onclick="editRecord('${record.id}')"
+                >
+                    ✏️ Editar
+                </button>
+
+
+                <button
+                    class="action-btn delete"
+                    onclick="deleteRecord('${record.id}')"
+                >
+                    🗑 Apagar
+                </button>
+
+            </div>
+
+        `;
+
+
+        dayList.appendChild(
+            div
+        );
+
+    });
+}
+
+
+/* =========================================
+   SUMMARY
+========================================= */
+
+function renderSummary(list){
+
+    const km =
+        list.reduce(
+            (sum,r)=>
+                sum + Number(r.km),
+            0
+        );
+
+
+    const litres =
+        list.reduce(
+            (sum,r)=>
+                sum + Number(r.litres),
+            0
+        );
+
+
+    const spent =
+        list.reduce(
+            (sum,r)=>
+                sum + Number(r.spent),
+            0
+        );
+
+
+    const average =
+        km > 0
+            ?
+            (litres/km)*100
+            :
+            0;
+
+
+    document.getElementById(
+        "sumKm"
+    ).textContent =
+        `${number(km)} km`;
+
+
+    document.getElementById(
+        "sumLitres"
+    ).textContent =
+        `${number(litres,2)} L`;
+
+
+    document.getElementById(
+        "sumSpent"
+    ).textContent =
+        euro(spent);
+
+
+    document.getElementById(
+        "sumAverage"
+    ).textContent =
+        `${number(average,2)}`;
+
+
+    document.getElementById(
+        "summaryDays"
+    ).textContent =
+        `${list.length} ${
+            list.length === 1
+                ? "dia"
+                : "dias"
+        }`;
+}
+
+
+/* =========================================
+   DASHBOARD
+========================================= */
+
+function updateDashboard(
+    list,
+    week
+){
+
+    const km =
+        list.reduce(
+            (sum,r)=>
+                sum + Number(r.km),
+            0
+        );
+
+
+    const litres =
+        list.reduce(
+            (sum,r)=>
+                sum + Number(r.litres),
+            0
+        );
+
+
+    const spent =
+        list.reduce(
+            (sum,r)=>
+                sum + Number(r.spent),
+            0
+        );
+
+
+    const average =
+        km > 0
+            ?
+            (litres/km)*100
+            :
+            0;
+
+
+    document.getElementById(
+        "statKm"
+    ).textContent =
+        number(km);
+
+
+    document.getElementById(
+        "statLitres"
+    ).textContent =
+        `${number(litres,1)} L`;
+
+
+    document.getElementById(
+        "statSpent"
+    ).textContent =
+        euro(spent);
+
+
+    document.getElementById(
+        "statAverage"
+    ).textContent =
+        number(
+            average,
+            2
+        );
+
+
+    document.getElementById(
+        "heroPeriod"
+    ).textContent =
+        formatWeek(week);
+
+
+    document.getElementById(
+        "heroText"
+    ).textContent =
+        list.length
+            ?
+            `${list.length} ${
+                list.length === 1
+                    ? "dia"
+                    : "dias"
+            } registado${
+                list.length === 1
+                    ? ""
+                    : "s"
+            }`
+            :
+            "Comece adicionando o primeiro dia.";
+}
+
+
+/* =========================================
+   FORMATOS
+========================================= */
+
+function number(
+    value,
+    decimals=0
+){
+
+    return Number(
+        value || 0
+    ).toLocaleString(
+        "pt-PT",
+        {
+            minimumFractionDigits:
+                decimals,
+
+            maximumFractionDigits:
+                decimals
+        }
+    );
+}
+
+
+function euro(value){
+
+    return Number(
+        value || 0
+    ).toLocaleString(
+        "pt-PT",
+        {
+            style:"currency",
+            currency:"EUR"
+        }
+    );
+}
+
+
+/* =========================================
+   STORAGE
+========================================= */
+
+function save(){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(records)
+    );
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+function toast(message){
+
+    const element =
+        document.getElementById(
+            "toast"
+        );
+
+    element.textContent =
+        message;
+
+    element.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        () =>
+            element.classList.remove(
+                "show"
+            ),
+        2200
+    );
+}
+
+
+/* =========================================
+   TEMA
+========================================= */
+
+function loadTheme(){
+
+    const theme =
+        localStorage.getItem(
+            "panda_theme"
+        ) || "dark";
+
+
+    document.documentElement
+        .dataset.theme =
+        theme;
+
+
+    themeBtn.textContent =
+        theme === "dark"
+            ? "☀️"
+            : "🌙";
+}
+
+
+themeBtn.addEventListener(
+    "click",
+    () => {
+
+        const current =
+            document.documentElement
+                .dataset.theme;
+
+
+        const next =
+            current === "dark"
+                ? "light"
+                : "dark";
+
+
+        document.documentElement
+            .dataset.theme =
+            next;
+
+
+        localStorage.setItem(
+            "panda_theme",
+            next
+        );
+
+
+        themeBtn.textContent =
+            next === "dark"
+                ? "☀️"
+                : "🌙";
+    }
+);
+
+
+/* =========================================
+   INICIAR
+========================================= */
+
+function init(){
+
+    recalculateAll();
+
+    save();
+
+    resetForm();
+
+    populateWeeks();
+
+    render();
+
+    loadTheme();
+}
+
+init();
+
+</script>
+
+</body>
+</html>
